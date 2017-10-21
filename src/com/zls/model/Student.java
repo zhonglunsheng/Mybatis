@@ -18,6 +18,13 @@ public class Student {
 		this.name = name;
 		this.age = age;
 	}
+	
+	public Student(int id, String name, int age) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+	}
 	public String getName() {
 		return name;
 	}
@@ -36,6 +43,11 @@ public class Student {
 	public void setId(int id) {
 		this.id = id;
 	}
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", name=" + name + ", age=" + age + "]";
+	}
+	
 	
 	
 }
