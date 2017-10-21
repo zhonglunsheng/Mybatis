@@ -1,13 +1,14 @@
 package com.zls.service;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.log4j.Logger;
 
 import com.zls.mappers.StudentMapper;
 import com.zls.model.Student;
 import com.zls.util.SqlSessionFactoryUtil;
 
 public class StudentTest {
-	
+	public static Logger logger = Logger.getLogger(Student.class);
 	public static void main(String[] args) {
 		SqlSession sqlSession = SqlSessionFactoryUtil.openSession();
 		StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
@@ -15,7 +16,7 @@ public class StudentTest {
 		int result = studentMapper.add(student);
 		sqlSession.commit();
 		if (result>0) {
-			System.out.println("添加成功！！");
+			logger.info("添加成功");
 		}
 	}
 }

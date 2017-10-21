@@ -3,11 +3,20 @@
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<properties resource="jdbc.properties"/>
-	<typeAliases>
+	<!-- <properties resource="jdbc.properties"/> -->
+	<properties>
+		<property name="jdbc.driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="jdbc.url" value="jdbc:mysql://localhost:3306/db_mybatis"/>
+		<property name="jdbc.username" value="root"/>
+		<property name="jdbc.password" value="123456"/>
+	</properties>
+	<!-- <typeAliases>
 		<typeAlias alias="Student" type="com.zls.model.Student"/>
+	</typeAliases> -->
+	<typeAliases>
+		<package name="com.zls.model"/>
 	</typeAliases>
-	<environments default="development">
+	<environments default="Test">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
@@ -17,8 +26,21 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 				<property name="password" value="${jdbc.password}" />
 			</dataSource>
 		</environment>
+		
+		<environment id="Test">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driverClassName}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.username}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
 	</environments>
-	<mappers>
+	<!-- <mappers>
 		<mapper resource="com/zls/mappers/StudentMapper.xml" />
+	</mappers> -->
+	<mappers>
+		<package name="com.zls.mappers"/>
 	</mappers>
 </configuration>
