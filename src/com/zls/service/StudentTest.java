@@ -1,6 +1,8 @@
 package com.zls.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
@@ -29,53 +31,17 @@ public class StudentTest {
 	}
 
 	@Test
-	public void testAdd() {
+	public void testFindStudent() {
 		logger.info("添加学生信息");
-		Student student = new Student("张三", 14);
-		studentMapper.add(student);
-	}
-	
-	@Test
-	public void testUpdate(){
-		logger.info("修改学生信息");
-		Student student = new Student(2,"张三",45);
-		studentMapper.update(student);
-	}
-	
-	@Test
-	public void testDelete(){
-		logger.info("删除学生信息");
-		studentMapper.delete(2);
-	}
-	
-	@Test
-	public void testFindById(){
-		logger.info("查找学生信息");
-		Student student = studentMapper.findById(1);
-		System.out.println(student);
-	}
-	
-	@Test
-	public void testFind(){
-		logger.info("查找学生所有信息");
-		List<Student> studentList = studentMapper.find();
-		for (Student student : studentList) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("searchBy", "name");
+		map.put("name", "%李%");
+		map.put("gradeId", 1);
+		map.put("age", 35);
+		List<Student> students = studentMapper.find2(map);
+		for (Student student : students) {
 			System.out.println(student);
 		}
 	}
 	
-	@Test
-	public void testFindByIdWithAddress(){
-		logger.info("查找学生含地址所有信息");
-		Student student = studentMapper.findWithAddress(4);
-		System.out.println(student);
-	}
-	
-	@Test
-	public void testFindByIdWithGrade(){
-		logger.info("查找学生含年级所有信息");
-		Student student = studentMapper.findWithAddress(4);
-		System.out.println(student);
-	}
-
 }

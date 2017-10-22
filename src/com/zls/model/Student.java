@@ -8,8 +8,6 @@ public class Student {
 	private int id;
 	private String name;
 	private  int age;
-	private Address address;
-	private Grade grade;
 
 	public Student() {
 		super();
@@ -45,23 +43,9 @@ public class Student {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public Address getAddress() {
-		return address;
-	}
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-	public Grade getGrade() {
-		return grade;
-	}
-	public void setGrade(Grade grade) {
-		this.grade = grade;
-	}
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", age=" + age + ", address=" + address + ", grade=" + grade
-				+ "]";
+		return "Student [id=" + id + ", name=" + name + ", age=" + age + "]";
 	}
 	
 }

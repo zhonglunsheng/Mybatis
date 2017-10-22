@@ -8,36 +8,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<id property="id" column="id" />
 		<result property="name" column="name"/>
 		<result property="age" column="age" />
-		<!--column此处是外键  -->
-		<association property="address" column="addressId" select="com.zls.mappers.AddressMapper.findById"></association>
-		<association property="grade" column="gradeId" select="com.zls.mappers.GradeMapper.findById"></association>
 	</resultMap>
-
-	<insert id="add" parameterType="Student"  >
-		insert into t_student values(null,#{name},#{age})
-	</insert>
-	
-	<update id="update" parameterType="Student">
-		update t_student set name=#{name},age=#{age} where id=${id}
-	</update>
-	
-	<delete id="delete" parameterType="Integer">
-		delete from t_student where id=#{id}
-	</delete>
-	
-	<select id="findById" parameterType="Integer" resultType="Student">
-		select * from t_student where id=#{id}
-	</select>
-	
-	<select id="findWithAddress" parameterType="Integer" resultMap="studentResult">
-		select * from t_student s,t_address a where s.addressId=a.addressId and s.id=#{id}
-	</select>
-	
-	<select id="findWithGrade" parameterType="Integer" resultMap="studentResult">
-		select * from t_student where gradeId=#{gradeId}
-	</select>
 	
 	<select id="find" resultMap="studentResult">
 		select * from t_student
+		where 1=1
+		<if test="name!=null">
+			and name like #{name}
+		</if>
+		<if test="gradeId!=null">
+			and gradeId=#{gradeId}
+		</if>
+	</select>
+	
+	<select id="find2" resultMap="studentResult">
+		select * from t_student
+	    <choose>
+	    	<when test="searchBy=='gradeId'">
+	    		where gradeId=#{gradeId}
+	    	</when>
+	    	<when test="searchBy=='name'">
+	    		where name like #{name}
+	    	</when>
+	    	<otherwise>
+	    		where age=#{age}
+	    	</otherwise>
+	    </choose>
 	</select>
 </mapper> 
