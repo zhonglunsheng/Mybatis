@@ -5,9 +5,10 @@ package com.zls.model;
  *
  */
 public class Student {
-	public int id;
-	public String name;
-	public int age;
+	private int id;
+	private String name;
+	private  int age;
+	private Address address;
 
 	public Student() {
 		super();
@@ -43,11 +44,16 @@ public class Student {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", age=" + age + "]";
+		return "Student [id=" + id + ", name=" + name + ", age=" + age + ", address=" + address + "]";
 	}
-	
-	
 	
 }

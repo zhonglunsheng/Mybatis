@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<id property="id" column="id" />
 		<result property="name" column="name"/>
 		<result property="age" column="age" />
+		<association property="address" column="addressId" select="com.zls.mappers.AddressMapper.findById"></association>
 	</resultMap>
 
 	<insert id="add" parameterType="Student"  >
@@ -18,12 +19,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update t_student set name=#{name},age=#{age} where id=${id}
 	</update>
 	
-	<delete id="delete" parameterType="Student">
+	<delete id="delete" parameterType="Integer">
 		delete from t_student where id=#{id}
 	</delete>
 	
-	<select id="findById" parameterType="Student" resultType="Student">
+	<select id="findById" parameterType="Integer" resultType="Student">
 		select * from t_student where id=#{id}
+	</select>
+	
+	<select id="findByIdWithAddress" parameterType="Integer" resultMap="studentResult">
+		select * from t_student s,t_address a where s.addressId=a.addressId and s.id=#{id}
 	</select>
 	
 	<select id="find" resultMap="studentResult">

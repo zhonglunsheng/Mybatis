@@ -1,8 +1,5 @@
 package com.zls.service;
 
-import static org.junit.Assert.*;
-
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -65,6 +62,13 @@ public class StudentTest {
 		for (Student student : studentList) {
 			System.out.println(student);
 		}
+	}
+	
+	@Test
+	public void testFindByIdWithAddress(){
+		logger.info("查找学生含地址所有信息");
+		Student student = studentMapper.findByIdWithAddress(4);
+		System.out.println(student);
 	}
 
 }
