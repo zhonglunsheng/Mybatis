@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<id property="id" column="id" />
 		<result property="name" column="name"/>
 		<result property="age" column="age" />
+		<!--column此处是外键  -->
 		<association property="address" column="addressId" select="com.zls.mappers.AddressMapper.findById"></association>
 	</resultMap>
 
