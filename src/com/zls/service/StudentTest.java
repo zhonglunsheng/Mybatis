@@ -1,15 +1,6 @@
 package com.zls.service;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -40,59 +31,30 @@ public class StudentTest {
 	@Test
 	public void testAddStudent() {
 		logger.info("添加学生信息");
-		Student student = new Student(1, "张三2", 23);
-		byte[] pic = null;
-		try {
-			File file = new File("c://1.jpg");
-			InputStream inputStream = new FileInputStream(file);
-			pic = new byte[inputStream.available()];
-			inputStream.read(pic);
-			inputStream.close();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		student.setPic(pic);
-		student.setRemark("个人简历。。。。");
+		Student student = new Student("小明", 15);
 		studentMapper.add(student);
 	}
 	
 	@Test
+	public void testUpdateStudent() {
+		logger.info("修改学生信息");
+		Student student = new Student("小明", 13);
+		studentMapper.update(student);
+	}
+	
+	@Test
 	public void testFindStudent() {
-		logger.info("查找学生信息");
-		Student student = studentMapper.findById(12);
-		byte[] pic = student.getPic();
-		try {
-			File file = new File("F://1.jpg");
-			OutputStream outPutStream = new FileOutputStream(file);
-			outPutStream.write(pic);
-			outPutStream.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		logger.info("修改学生信息");
+		Student student = studentMapper.findById(1);
 		System.out.println(student);
 	}
 	
 	@Test
 	public void testFindStudents() {
-		logger.info("查找学生信息");
-		int offset=0,limit=3;
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		List<Student> students = studentMapper.findStudents(rowBounds);
+		logger.info("修改学生信息");
+		List<Student> students = studentMapper.findStudents();
 		for (Student student : students) {
 			System.out.println(student);
 		}
-		
-	}
-	
-	@Test
-	public void testFindStudents2() {
-		logger.info("查找学生信息");
-		Map<Object, Object> map = new HashMap<Object,Object>();
-		map.put("start", 0);
-		map.put("pageSize", 3);
-		List<Student> students = studentMapper.findStudents2(map);
-		for (Student student : students) {
-			System.out.println(student);
-		}	
 	}
 }

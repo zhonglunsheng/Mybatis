@@ -8,9 +8,6 @@ public class Student {
 	private int id;
 	private String name;
 	private  int age;
-	private byte[] pic;
-	private String remark;
-
 	public Student() {
 		super();
 		// TODO 自动生成的构造函数存根
@@ -45,23 +42,9 @@ public class Student {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public byte[] getPic() {
-		return pic;
-	}
-	public void setPic(byte[] pic) {
-		this.pic = pic;
-	}
-	public String getRemark() {
-		return remark;
-	}
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", age=" + age + ", remark=" + remark + "]";
+		return "Student [id=" + id + ", name=" + name + ", age=" + age + "]";
 	}
-	
 	
 }
