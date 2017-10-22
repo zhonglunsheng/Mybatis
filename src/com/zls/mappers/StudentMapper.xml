@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="age" column="age" />
 		<!--column此处是外键  -->
 		<association property="address" column="addressId" select="com.zls.mappers.AddressMapper.findById"></association>
+		<association property="grade" column="gradeId" select="com.zls.mappers.GradeMapper.findById"></association>
 	</resultMap>
 
 	<insert id="add" parameterType="Student"  >
@@ -28,8 +29,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from t_student where id=#{id}
 	</select>
 	
-	<select id="findByIdWithAddress" parameterType="Integer" resultMap="studentResult">
+	<select id="findWithAddress" parameterType="Integer" resultMap="studentResult">
 		select * from t_student s,t_address a where s.addressId=a.addressId and s.id=#{id}
+	</select>
+	
+	<select id="findWithGrade" parameterType="Integer" resultMap="studentResult">
+		select * from t_student where gradeId=#{gradeId}
 	</select>
 	
 	<select id="find" resultMap="studentResult">

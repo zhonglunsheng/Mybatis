@@ -16,5 +16,7 @@ public interface StudentMapper {
 	
 	List<Student> find();
 	
-	Student findByIdWithAddress(Integer id);
+	Student findWithAddress(Integer id);
+	
+	Student findWithGrade(Integer gradeId);
 }

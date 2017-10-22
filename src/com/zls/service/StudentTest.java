@@ -67,7 +67,14 @@ public class StudentTest {
 	@Test
 	public void testFindByIdWithAddress(){
 		logger.info("查找学生含地址所有信息");
-		Student student = studentMapper.findByIdWithAddress(4);
+		Student student = studentMapper.findWithAddress(4);
+		System.out.println(student);
+	}
+	
+	@Test
+	public void testFindByIdWithGrade(){
+		logger.info("查找学生含年级所有信息");
+		Student student = studentMapper.findWithAddress(4);
 		System.out.println(student);
 	}
 
