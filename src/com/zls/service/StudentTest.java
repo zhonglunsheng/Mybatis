@@ -1,10 +1,15 @@
 package com.zls.service;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -31,64 +36,63 @@ public class StudentTest {
 		sqlSession.close();
 	}
 
-	@Test
-	public void testFindStudent() {
-		logger.info("添加学生信息");
-		Map<Object, Object> map = new HashMap<Object, Object>();
-		map.put("searchBy", "name");
-		map.put("name", "%李%");
-		map.put("gradeId", 1);
-		map.put("age", 35);
-		List<Student> students = studentMapper.find2(map);
-		for (Student student : students) {
-			System.out.println(student);
-		}
-	}
 	
 	@Test
-	public void testFindStudent2() {
-		logger.info("添加学生信息");
-		Map<Object, Object> map = new HashMap<Object, Object>();
-		map.put("name", "%李%");
-		map.put("gradeId", 1);
-		map.put("age", 35);
-		List<Student> students = studentMapper.find3(map);
-		for (Student student : students) {
-			System.out.println(student);
-		}
-	}
-	
-	@Test
-	public void testFindStudent3() {
-		logger.info("添加学生信息");
-		Map<Object, Object> map = new HashMap<Object, Object>();
-		map.put("name", "%李%");
-		map.put("gradeId", 1);
-		//map.put("age", 35);
-		List<Student> students = studentMapper.find4(map);
-		for (Student student : students) {
-			System.out.println(student);
-		}
-	}
-	
-	@Test
-	public void testFindStudent4() {
-		logger.info("添加学生信息");
-		Map<Object, Object> map = new HashMap<Object,Object>();
-		List<Integer> gradeIds = new ArrayList<Integer>();
-		gradeIds.add(1);
-		gradeIds.add(2);
-		map.put("gradeIds", gradeIds);
-		List<Student> students = studentMapper.find5(map);
-		for (Student student : students) {
-			System.out.println(student);
-		}
-	}
-	
-	@Test
-	public void testFindStudent5() {
+	public void testAddStudent() {
 		logger.info("添加学生信息");
 		Student student = new Student(1, "张三2", 23);
-		studentMapper.update(student);
+		byte[] pic = null;
+		try {
+			File file = new File("c://1.jpg");
+			InputStream inputStream = new FileInputStream(file);
+			pic = new byte[inputStream.available()];
+			inputStream.read(pic);
+			inputStream.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		student.setPic(pic);
+		student.setRemark("个人简历。。。。");
+		studentMapper.add(student);
+	}
+	
+	@Test
+	public void testFindStudent() {
+		logger.info("查找学生信息");
+		Student student = studentMapper.findById(12);
+		byte[] pic = student.getPic();
+		try {
+			File file = new File("F://1.jpg");
+			OutputStream outPutStream = new FileOutputStream(file);
+			outPutStream.write(pic);
+			outPutStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(student);
+	}
+	
+	@Test
+	public void testFindStudents() {
+		logger.info("查找学生信息");
+		int offset=0,limit=3;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Student> students = studentMapper.findStudents(rowBounds);
+		for (Student student : students) {
+			System.out.println(student);
+		}
+		
+	}
+	
+	@Test
+	public void testFindStudents2() {
+		logger.info("查找学生信息");
+		Map<Object, Object> map = new HashMap<Object,Object>();
+		map.put("start", 0);
+		map.put("pageSize", 3);
+		List<Student> students = studentMapper.findStudents2(map);
+		for (Student student : students) {
+			System.out.println(student);
+		}	
 	}
 }
