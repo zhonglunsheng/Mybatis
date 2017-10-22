@@ -35,4 +35,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	</otherwise>
 	    </choose>
 	</select>
+	
+	<select id="find3" resultMap="studentResult">
+	    select * from t_student
+		<where>
+		<if test="age!=null">
+			age = #{age}
+		</if>
+		<if test="name!=null">
+			and name like #{name}
+		</if>
+		<if test="gradeId!=null">
+			and gradeId=#{gradeId}
+		</if>
+		</where>
+	</select>
+	
+	<select id="find4" resultMap="studentResult">
+	    select * from t_student
+		<trim prefix="where" prefixOverrides="and|or">
+		<if test="age!=null">
+			age = #{age}
+		</if>
+		<if test="name!=null">
+			and name like #{name}
+		</if>
+		<if test="gradeId!=null">
+			and gradeId=#{gradeId}
+		</if>
+		</trim>
+	</select>
+	
+	<select id="find5" resultMap="studentResult">
+	    select * from t_student
+	    where gradeId in 
+		<foreach item="gradeId" collection="gradeIds" open="(" separator="," close=")">
+			#{gradeId}
+		</foreach>
+	</select>
+	
+	<update id="update" parameterType="Student">
+	    update t_student
+	    <set>
+	    	<if test="age!=null">
+	    		age=#{age},
+	    	</if>
+	    	<if test="name!=null">
+	    		name=#{name}
+	    	</if>
+	    </set>
+	    where id=#{id}
+	</update>
 </mapper> 

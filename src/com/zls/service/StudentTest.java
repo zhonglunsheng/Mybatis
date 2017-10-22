@@ -1,5 +1,6 @@
 package com.zls.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,4 +45,50 @@ public class StudentTest {
 		}
 	}
 	
+	@Test
+	public void testFindStudent2() {
+		logger.info("添加学生信息");
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("name", "%李%");
+		map.put("gradeId", 1);
+		map.put("age", 35);
+		List<Student> students = studentMapper.find3(map);
+		for (Student student : students) {
+			System.out.println(student);
+		}
+	}
+	
+	@Test
+	public void testFindStudent3() {
+		logger.info("添加学生信息");
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("name", "%李%");
+		map.put("gradeId", 1);
+		//map.put("age", 35);
+		List<Student> students = studentMapper.find4(map);
+		for (Student student : students) {
+			System.out.println(student);
+		}
+	}
+	
+	@Test
+	public void testFindStudent4() {
+		logger.info("添加学生信息");
+		Map<Object, Object> map = new HashMap<Object,Object>();
+		List<Integer> gradeIds = new ArrayList<Integer>();
+		gradeIds.add(1);
+		gradeIds.add(2);
+		map.put("gradeIds", gradeIds);
+		List<Student> students = studentMapper.find5(map);
+		for (Student student : students) {
+			System.out.println(student);
+		}
+	}
+	
+	@Test
+	public void testFindStudent5() {
+		logger.info("添加学生信息");
+		Student student = new Student(1, "张三2", 23);
+		studentMapper.update(student);
+	}
 }

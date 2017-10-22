@@ -70,5 +70,13 @@ JNDI，使用应用服务器配置 JNDI 数据源获取数据库连接；
   
 ### 第二节：choose,when和otherwise条件
 
+### 第四节：where条件
+  
+### 第五节：trim条件
+  
+### 第六节：foreach循环
+
+### 第七节：set条件
+
 
 
