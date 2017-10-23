@@ -97,6 +97,19 @@ Mybatis 默认情况下，MyBatis 启用一级缓存，即同一个 SqlSession 接口对象调用了相同
 开发者可以自己配置二级缓存，二级缓存是全局的；
 默认情况下，select 使用缓存的，insert update delete 是不使用缓存的；
 
+#### 第七章 使用注解配置 SQL映射器
+第一节：基本映射语句
+1，@Insert
+2，@Update
+3，@Delete
+4，@Select
+  
 
+第二节：结果集映射语句
+  
+
+第三节：关系映射
+1，一对一映射；
+2，一对多映射； 
 
 
