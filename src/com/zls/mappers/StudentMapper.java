@@ -3,45 +3,29 @@ package com.zls.mappers;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
 
 import com.zls.model.Student;
 
 public interface StudentMapper {
 	
-	@Insert("insert into t_student values(null,#{name},#{age})")
+	@InsertProvider(type=StudentDynaSqlProvider.class,method="addStudent")
 	void add(Student student);
 	
-	@Update("update t_student set name=#{name},age=#{age}")
+	@UpdateProvider(type=StudentDynaSqlProvider.class,method="updateStudent")
 	void update(Student student);
 	
-	@Select("select * from t_student where id=#{id}")
+	@SelectProvider(type=StudentDynaSqlProvider.class,method="findStudent")
 	Student findById(Integer id);
 	
-	@Select("select * from t_student")
-	@Results(
-			{
-				@Result(id=true,column="id",property="id"),
-				@Result(column="name",property="name"),
-				@Result(column="age",property="age")
-				
-			}
-			)
+	@SelectProvider(type=StudentDynaSqlProvider.class,method="findStudents")
 	List<Student> findStudents();
-	
-	@Select("select * from t_student where id=#{id}")
-	@Results(
-			{
-				@Result(id=true,column="id",property="id"),
-				@Result(column="name",property="name"),
-				@Result(column="age",property="age"),
-				@Result(column="addressId",property="address",one=@One(select="com.zls.mappers.AddressMapper.findById")),
-				@Result(column="gradeId",property="grade",one=@One(select="com.zls.mappers.GradeMapper.findById"))
-			})
-	Student findStudentWithAddressAndGrade(Integer id);
 	
 }

@@ -111,5 +111,11 @@ Mybatis 默认情况下，MyBatis 启用一级缓存，即同一个 SqlSession 接口对象调用了相同
 第三节：关系映射
 1，一对一映射；
 2，一对多映射； 
+  
+第四节：动态SQL注解
+@InsertProvider
+@UpdateProvider
+@DeleteProvider
+@SelectProvider
 
 
